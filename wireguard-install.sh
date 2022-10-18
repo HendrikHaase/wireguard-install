@@ -169,11 +169,13 @@ PrivateKey = $key
 [Peer]
 PublicKey = $(grep PrivateKey /etc/wireguard/wg0.conf | cut -d " " -f 3 | wg pubkey)
 PresharedKey = $psk
-AllowedIPs = 0.0.0.0/0, ::/0
+AllowedIPs = 10.7.0.0/24
 Endpoint = $(grep '^# ENDPOINT' /etc/wireguard/wg0.conf | cut -d " " -f 3):$(grep ListenPort /etc/wireguard/wg0.conf | cut -d " " -f 3)
 PersistentKeepalive = 25
 EOF
 }
+
+#AllowedIPs = 0.0.0.0/0, ::/0
 
 if [[ ! -e /etc/wireguard/wg0.conf ]]; then
 	# Detect some Debian minimal setups where neither wget nor curl are installed
